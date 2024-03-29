@@ -10,33 +10,37 @@ import { SeparadorComponent } from '../../componentes/separador/separador.compon
 import { FormularioContatoComponent } from '../formulario-contato/formulario-contato.component';
 import { ContatoService } from '../../services/contato.service';
 import { Contato } from '../../componentes/contato/contato';
+import { PerfilContatoComponent } from "../perfil-contato/perfil-contato.component";
 
 @Component({
-  selector: 'app-lista-contatos',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ContainerComponent,
-    CabecalhoComponent,
-    SeparadorComponent,
-    ContatoComponent,
-    FormsModule,
-    FormularioContatoComponent,
-    RouterLink
-  ],
-  templateUrl: './lista-contatos.component.html',
-  styleUrl: './lista-contatos.component.css'
+    selector: 'app-lista-contatos',
+    standalone: true,
+    templateUrl: './lista-contatos.component.html',
+    styleUrl: './lista-contatos.component.css',
+    imports: [
+        CommonModule,
+        ContainerComponent,
+        CabecalhoComponent,
+        SeparadorComponent,
+        ContatoComponent,
+        FormsModule,
+        FormularioContatoComponent,
+        RouterLink,
+    ]
 })
-export class ListaContatosComponent implements OnInit{
-  alfabeto: string = 'abcdefghijklmnopqrstuvwxyz'
+export class ListaContatosComponent implements OnInit {
+  alfabeto: string = 'abcdefghijklmnopqrstuvwxyz';
   contatos: Contato[] = [];
 
   filtroPorTexto: string = ''
 
-  constructor(private contatoService: ContatoService) {}
+  constructor(private contatoService: ContatoService) { }
 
   ngOnInit() {
-    this.contatos = this.contatoService.obterContatos();
+    this.contatoService.obterContatos().subscribe((listaContatos) => {
+      this.contatos = listaContatos
+       console.log(this.contatos);
+    })
   }
 
   // Remove os acentos de uma string

@@ -1,0 +1,13 @@
+@if(control.errors && control.touched) {
+  @if(control.errors['required']) {
+        <div class="mensagem-erro">
+            Campo obrigatório
+        </div>
+    }
+​
+    @if(control.errors['required']) {
+      <div *ngIf="control.get('email')" class="mensagem-erro">
+        Formato de e-mail inválido
+      </div>
+    }
+}
